@@ -12,7 +12,7 @@ import (
 func Load(filePath string, v interface{}) error {
 	fileContent, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return fmt.Errorf("yaml_load: error reading file. path: %s. err: %s", filePath, err.Error())
+		return fmt.Errorf("yaml_load: error reading file. err: %s", err.Error())
 	}
 
 	if err = yaml.Unmarshal(fileContent, v); err != nil {
