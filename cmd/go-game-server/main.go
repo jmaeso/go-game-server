@@ -3,12 +3,22 @@ package main
 import (
 	"fmt"
 	"net"
+	"os"
 	"time"
 
 	"github.com/jmaeso/go-game-server/app"
+	"github.com/jmaeso/go-game-server/tools"
 )
 
 func main() {
+	flags, err := tools.LoadFlags()
+	if err != nil {
+		fmt.Printf("could not start program. err: %s\n", err.Error())
+		os.Exit(1)
+	}
+
+	// TODO: Load config depending on flag
+	fmt.Println(flags)
 
 	var server app.Server
 	if err := server.Init(":1200"); err != nil {
