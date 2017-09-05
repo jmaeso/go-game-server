@@ -7,7 +7,9 @@
 # required = ["github.com/user/thing/cmd/thing"]
 # ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
 ignored = [
-    "github.com/jmaeso/go-game-server/app"
+    "github.com/jmaeso/go-game-server/game",
+    "github.com/jmaeso/go-game-server/tools/flags",
+    "github.com/jmaeso/go-game-server/tools/yaml"
 ]
 #
 # [[constraint]]
