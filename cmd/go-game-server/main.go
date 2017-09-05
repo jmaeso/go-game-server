@@ -6,22 +6,25 @@ import (
 	"os"
 	"time"
 
-	"github.com/jmaeso/go-game-server/app"
-	"github.com/jmaeso/go-game-server/tools"
+	"github.com/jmaeso/go-game-server/game"
+	"github.com/jmaeso/go-game-server/tools/flags"
+	"github.com/jmaeso/go-game-server/tools/yaml"
 )
 
 func main() {
-	flags, err := tools.LoadFlags()
+	flags, err := flags.Load()
 	if err != nil {
 		fmt.Printf("could not start program. err: %s\n", err.Error())
 		os.Exit(1)
 	}
 
-	// TODO: Load config depending on flag
-	fmt.Println(flags)
+	var settings game.Settings
+	if err = yaml.Load("config/"+flags["environment"]+".yml", &settings); err != nil {
+		fmt.Printf("could not load config. err: %s\n", err.Error())
+	}
 
-	var server app.Server
-	if err := server.Init(":1200"); err != nil {
+	var server game.Server
+	if err := server.Init(settings.Server); err != nil {
 		fmt.Printf("could not init server. err: %s\n", err.Error())
 	}
 

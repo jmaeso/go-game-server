@@ -1,12 +1,11 @@
-package tools
+package flags
 
 import (
 	"errors"
 	"flag"
 )
 
-func LoadFlags() (map[string]string, error) {
-	//var flags map[string]string
+func Load() (map[string]string, error) {
 	flags := make(map[string]string)
 
 	environmentFlag := flag.String("environment", "", "environment of the server.")
