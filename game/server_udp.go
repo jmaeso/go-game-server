@@ -7,51 +7,60 @@ import (
 	"time"
 )
 
-type Server struct {
+// UDPServer is the representation for a UDP network connection.
+type UDPServer struct {
 	Conn *net.UDPConn
 }
 
-func (s *Server) Init(settings *ServerSettings) error {
+// Init is a required function previous to use the server.
+//
+// settings: Has to contain Port attr. Url is optional (localhost by default).
+//
+// Returns an error if the resultant address is bad or connection can't be established.
+func (s *UDPServer) Init(settings *ServerSettings) error {
 	url := settings.URL
 	port := settings.Port
 	if port == "" {
-		return errors.New("server_init: port required")
+		return errors.New("udp_server_init: port required")
 	}
 
 	address := url + ":" + port
 
 	udpAddr, err := net.ResolveUDPAddr("udp4", address)
 	if err != nil {
-		return errors.New("server_init: could not resolve address. err: " + err.Error())
+		return errors.New("udp_server_init: could not resolve address. err: " + err.Error())
 	}
 
 	s.Conn, err = net.ListenUDP("udp", udpAddr)
 	if err != nil {
-		return errors.New("server_init: could not start connection. err: " + err.Error())
+		return errors.New("udp_server_init: could not start connection. err: " + err.Error())
 	}
 
 	return nil
 }
 
-func (s *Server) Handle() error {
+// Handle starts to listen and process client's messages.
+//
+// Returns an error if a message is unprocesable.
+func (s *UDPServer) Handle() error {
 	var err error
 
 	for err == nil {
 		var buff [512]byte
 		_, addr, err := s.Conn.ReadFrom(buff[0:])
 		if err != nil {
-			err = errors.New("server_handle: could not read message. err: " + err.Error())
+			err = errors.New("udp_server_handle: could not read message. err: " + err.Error())
 		}
 
 		if err = s.process(buff, addr); err != nil {
-			err = errors.New("server_handle: could not process message. err: " + err.Error())
+			err = errors.New("udp_server_handle: could not process message. err: " + err.Error())
 		}
 	}
 
 	return err
 }
 
-func (s *Server) process(content [512]byte, emiter net.Addr) error {
+func (s *UDPServer) process(content [512]byte, emiter net.Addr) error {
 
 	log.Printf("MSG content: %v\n", content)
 	log.Printf("From: %v\n\n\n", emiter)
@@ -59,7 +68,7 @@ func (s *Server) process(content [512]byte, emiter net.Addr) error {
 	return nil
 }
 
-func (s *Server) debugResponse(dest net.Addr) {
+func (s *UDPServer) debugResponse(dest net.Addr) {
 	daytime := time.Now().String()
 	s.Conn.WriteTo([]byte(daytime), dest)
 }

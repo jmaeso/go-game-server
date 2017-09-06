@@ -5,6 +5,9 @@ import (
 	"flag"
 )
 
+// Load is a function for reading input flags to the program.
+//
+// Returns a map[key] = value with the flags or error if a required flag is not provided.
 func Load() (map[string]string, error) {
 	flags := make(map[string]string)
 
