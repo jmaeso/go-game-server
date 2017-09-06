@@ -28,9 +28,12 @@ func main() {
 		fmt.Printf("could not init server. err: %s\n", err.Error())
 	}
 
-	for {
-		testhandleClient(server.Conn)
+	if err = server.Handle(); err != nil {
+		fmt.Printf("could not handle message. err: %s\n", err.Error())
 	}
+	// for {
+	// 	testhandleClient(server.Conn)
+	// }
 
 }
 

@@ -2,15 +2,14 @@ package game
 
 import (
 	"errors"
-	"fmt"
+	"log"
 	"net"
+	"time"
 )
 
-type (
-	Server struct {
-		Conn *net.UDPConn
-	}
-)
+type Server struct {
+	Conn *net.UDPConn
+}
 
 func (s *Server) Init(settings *ServerSettings) error {
 	url := settings.URL
@@ -28,8 +27,39 @@ func (s *Server) Init(settings *ServerSettings) error {
 
 	s.Conn, err = net.ListenUDP("udp", udpAddr)
 	if err != nil {
-		fmt.Printf("server_init: could not listen address. err: " + err.Error())
+		return errors.New("server_init: could not start connection. err: " + err.Error())
 	}
 
 	return nil
+}
+
+func (s *Server) Handle() error {
+	var err error
+
+	for err == nil {
+		var buff [512]byte
+		_, addr, err := s.Conn.ReadFrom(buff[0:])
+		if err != nil {
+			err = errors.New("server_handle: could not read message. err: " + err.Error())
+		}
+
+		if err = s.process(buff, addr); err != nil {
+			err = errors.New("server_handle: could not process message. err: " + err.Error())
+		}
+	}
+
+	return err
+}
+
+func (s *Server) process(content [512]byte, emiter net.Addr) error {
+
+	log.Printf("MSG content: %v\n", content)
+	log.Printf("From: %v\n\n\n", emiter)
+	s.debugResponse(emiter)
+	return nil
+}
+
+func (s *Server) debugResponse(dest net.Addr) {
+	daytime := time.Now().String()
+	s.Conn.WriteTo([]byte(daytime), dest)
 }

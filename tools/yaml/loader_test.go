@@ -42,7 +42,7 @@ func TestYaml_Load(t *testing.T) {
 		})
 	})
 
-	t.Run("when the loading is succesful", func(t *testing.T) {
+	t.Run("when the loading is successful", func(t *testing.T) {
 		filePath := "test_data/data.yml"
 		v := new(testData)
 
