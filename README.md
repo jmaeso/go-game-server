@@ -4,7 +4,7 @@
 
 ![gopher-investigation](https://lemag.sfeir.com/wp-content/uploads/2016/12/gophers5th-1024x595.jpg)
 
-This is a project for being able to learn deeper about go `all that my mentors did not teach me` ;-)
+This is a project for being able to learn deeper about go.
 
 The server functionality will be to stream positions of X players and process their commands.
 
