@@ -1,6 +1,7 @@
 # go-game-server
 
 [![Build Status](https://travis-ci.org/jmaeso/go-game-server.svg?branch=feature%2Fadd_travis_test_launcher)](https://travis-ci.org/jmaeso/go-game-server)
+[![Coverage Status](https://coveralls.io/repos/github/jmaeso/go-game-server/badge.svg?branch=master)](https://coveralls.io/github/jmaeso/go-game-server?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jmaeso/go-game-server)](https://goreportcard.com/report/github.com/jmaeso/go-game-server)
 
 ![gopher-investigation](https://lemag.sfeir.com/wp-content/uploads/2016/12/gophers5th-1024x595.jpg)
