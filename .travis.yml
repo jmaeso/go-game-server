@@ -1,11 +1,13 @@
 language: go
-
 go:
   - 1.9
 sudo: false
 script:
-  - go test -cover -race $(go list ./... | grep -v /vendor/)
+  - go test -cover -race $(go list ./... | grep -v /vendor/) -v -covermode=atomic $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
 install:
-  # Add Godeps dependencies to GOPATH and PATH
   - export GOPATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace:$GOPATH"
   - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
+  - go get github.com/mattn/goveralls golang.org/x/tools/cmd/cover
+env:
+  global:
+    secure: iKPxMbZGCZn3GqcMN1knHsIPSavO6DH6HQsJmpBX1gl2EiMdYgpYtpEio5alKRyBpeVG3PcXU8l5rCa4mchKxCXGBG0q9bo5+TLhp/nFThHhuYX/bCZ1nQHenSq/Lz/yyGTzcmON9m4xTorHaenzr9PbobX/vhaxvlHa+tZOj0ZkbxGGzkKRzpMUwMqQRqfnHjmTkH3U3A9uLh50qqEWDAq9j6IEWZI7gRZ1/dNRsaJH4+jhEyw1FjvZt4yg1C+2DUI/+hT/74JBnU4LmzSixLcs1u23C9o2yQbozVGDg6cUro0+YroePq1rzUYPa3tkcRqdrj6ALdxTUyMS+EfZbMsBcz7hdIRq4BlLyq9rpJpt/Idlt+yIRxzAtZLMebLI2i0Q2FTTteWPiDzEO2w7wc7vfpsO1RtFwWLmLRlreMTcZH16gxSKnCKnEP0rDU/VUsrt0nsyO9Co4RNVVS7nR3OWv1wtO1LBLPicyvAcDmem54jn4U5lAWx2f93tigTXafLsoMG4SrarGui8rF3Ykq/RgihvkvZiUGVOXUqrggpKk10RLzBpfDEb9JvcdXZ5ve7LYwXfibXaovQ+uaJXCLv8vz/TolnTmK+u9d/n5f39cxn1vxR5ITcXV1GzhyLLFymsORw4TUudlnE+d9N3aln3j/9aAEHn+eMnz26p3Wk=
