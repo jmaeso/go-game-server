@@ -17,3 +17,13 @@ const (
 	// DISCONNECT is the packet that tells a client request disconnection.
 	DISCONNECT
 )
+
+func (pt *PacketType) Encode() ([]byte, error) {
+
+	return nil, nil
+}
+
+func (pt *PacketType) Decode() (*PacketType, error) {
+
+	return nil, nil
+}

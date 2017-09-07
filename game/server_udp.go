@@ -5,6 +5,8 @@ import (
 	"log"
 	"net"
 	"time"
+
+	"github.com/jmaeso/go-game-server/game/netbit"
 )
 
 // UDPServer is the representation for a UDP network connection.
@@ -62,7 +64,13 @@ func (s *UDPServer) Handle() error {
 
 func (s *UDPServer) process(content [512]byte, emiter net.Addr) error {
 
-	log.Printf("MSG content: %v\n", content)
+	var userMsg netbit.Packet
+
+	if err := netbit.Decode(content, &userMsg); err != nil {
+		return err
+	}
+
+	log.Printf("MSG content: %v\n", userMsg)
 	log.Printf("From: %v\n\n\n", emiter)
 	s.debugResponse(emiter)
 	return nil

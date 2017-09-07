@@ -1,16 +1,15 @@
 package ptype
 
-import "github.com/jmaeso/go-game-server/game/netbit"
-
 type Connect struct {
 	Nick string `bit:"10"`
 }
 
-func (c *Connect) Encode(*netbit.Packet) ([]byte, error) {
+func (c *Connect) EncodeNetBit() ([]byte, error) {
 
+	// TODO: Create bit stream.
 	return nil, nil
 }
-func (c *Connect) Decode([]byte) (*netbit.Packet, error) {
+func (c *Connect) DecodeNetBit([]byte) error {
 
-	return nil, nil
+	return nil
 }
