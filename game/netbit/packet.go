@@ -1,10 +1,14 @@
 package netbit
 
+import (
+	"github.com/jmaeso/go-game-server/game/netbit/ptype"
+)
+
 const tag = "bit"
 
 type Packet struct {
 	Type Packer `bit:"5"`
-	Body Packer `bit:"507"` /*Connect or Welcome or etc.*/
+	Body Packer `bit:"507"` // 512 - 5 = 507
 }
 
 type Packer interface {
@@ -49,3 +53,12 @@ type Packer interface {
 
 // 	return &Packet{Type: pt, Body: body}, nil
 // }
+func (p *Packet) DecodeNetBit(data []byte) error {
+	switch p.Type {
+	case CONNECT:
+		var c ptype.Connect
+		c.DecodeNetBit(data)
+		p.Body = c
+	}
+	return nil
+}

@@ -4,12 +4,15 @@ type Connect struct {
 	Nick string `bit:"10"`
 }
 
-func (c *Connect) EncodeNetBit() ([]byte, error) {
+func (c Connect) EncodeNetBit() ([]byte, error) {
 
 	// TODO: Create bit stream.
 	return nil, nil
 }
-func (c *Connect) DecodeNetBit([]byte) error {
+
+// Fullfy Nick with data
+func (c Connect) DecodeNetBit(data []byte) error {
+	c.Nick = string(data[:])
 
 	return nil
 }

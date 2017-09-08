@@ -66,7 +66,7 @@ func (s *UDPServer) process(content [512]byte, emiter net.Addr) error {
 
 	var userMsg netbit.Packet
 
-	if err := netbit.Decode(content, &userMsg); err != nil {
+	if err := netbit.Decode(content[:], &userMsg); err != nil {
 		return err
 	}
 

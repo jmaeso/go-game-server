@@ -18,12 +18,12 @@ const (
 	DISCONNECT
 )
 
-func (pt *PacketType) Encode() ([]byte, error) {
+func (pt PacketType) EncodeNetBit() ([]byte, error) {
 
 	return nil, nil
 }
 
-func (pt *PacketType) Decode() (*PacketType, error) {
+func (pt PacketType) DecodeNetBit([]byte) error {
 
-	return nil, nil
+	return nil
 }
