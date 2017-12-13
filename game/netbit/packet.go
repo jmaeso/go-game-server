@@ -53,6 +53,7 @@ type Packer interface {
 
 // 	return &Packet{Type: pt, Body: body}, nil
 // }
+
 func (p *Packet) DecodeNetBit(data []byte) error {
 	switch p.Type {
 	case CONNECT:

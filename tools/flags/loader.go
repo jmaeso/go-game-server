@@ -11,7 +11,7 @@ import (
 func Load() (map[string]string, error) {
 	flags := make(map[string]string)
 
-	environmentFlag := flag.String("environment", "", "environment of the server.")
+	environmentFlag := flag.String("environment", "development", "environment of the server.")
 	flag.Parse()
 
 	if *environmentFlag == "" {
